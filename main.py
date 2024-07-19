@@ -2,11 +2,28 @@ def main():
     filePath = "books/frankenstein.txt"
     text = getText(filePath)
     wordCount = wc(text)
-    #charCount = findChars(text) #debug
+    chars = findChars(text)
+    charDict = makeCharDict(chars, text)
+
     print(f"there are {wordCount} words in the frankenstein book")
+    print("Here is a dictionary with the counts of each charactor used")
+    print(charDict)
     #print(charCount) #debug
 
     return
+
+def makeCharDict(chars, strText):
+    lowerStr = strText.lower()
+    strLetters = list(lowerStr)
+    charDict = {}
+    for i in range(0, len(chars)): # go through each letter found
+        count = 0
+        for j in range(0, len(strLetters)):# increment the count if you find the letter
+            if chars[i] == strLetters[j]:
+                count += 1
+        charDict.update({chars[i]: count}) #update dict with current count and letter inquery
+    #print(charDict) #debug
+    return charDict
 
 def wc(fileStr):
     words = fileStr.split() #fileStr.split() turns your long string into list of words
@@ -31,8 +48,6 @@ def findChars(textStr):
             charFound.append(chars[i])
             #print(chars[i]) #debug
     return charFound
-
-
 
 
 main()
