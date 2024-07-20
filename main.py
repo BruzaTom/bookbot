@@ -1,20 +1,30 @@
 def main():
     filePath = "books/frankenstein.txt"
     text = getText(filePath)
+    lowText = text.lower()
     wordCount = wc(text)
-    chars = findChars(text)
-    charDict = makeCharDict(chars, text)
+    chars = findChars(lowText)
+    charDict = makeCharDict(chars, lowText)
+    lableDict = listDict(charDict)
+    lableDict.sort(reverse=True, key=sort_on)
 
     print(f"there are {wordCount} words in the frankenstein book")
-    print("Here is a dictionary with the counts of each charactor used")
-    print(charDict)
-    #print(charCount) #debug
+    print("Here is a labled list of dictionarys with the values sorted highest to lowest")
+    print(lableDict)
 
     return
 
+
+
+def sort_on(dict):
+    return dict["num"]
+
+def listDict(oldDict):
+    newDict = [{"name": key, "num": value} for key, value in oldDict.items()]
+    return newDict
+
 def makeCharDict(chars, strText):
-    lowerStr = strText.lower()
-    strLetters = list(lowerStr)
+    strLetters = list(strText)
     charDict = {}
     for i in range(0, len(chars)): # go through each letter found
         count = 0
@@ -35,8 +45,7 @@ def getText(path):
     return file_contents
 
 def findChars(textStr):
-    lowerStr = textStr.lower()
-    chars = list(lowerStr)
+    chars = list(textStr)
     charFound = []
     foundChar = None
     for i in range(0, len(chars)): # go though chars
