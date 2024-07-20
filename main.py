@@ -5,23 +5,29 @@ def main():
     wordCount = wc(text)
     chars = findChars(lowText)
     charDict = makeCharDict(chars, lowText)
-    lableDict = listDict(charDict)
-    lableDict.sort(reverse=True, key=sort_on)
+    dictLst = listDict(charDict)
+    dictLst.sort(reverse=True, key=sort_on)#built in sort function sorted in reversed based on sort_on function return
+    alphaDict = alphaOnly(dictLst)
 
     print(f"there are {wordCount} words in the frankenstein book")
-    print("Here is a labled list of dictionarys with the values sorted highest to lowest")
-    print(lableDict)
+    print("Here is a labled list of dictionarys with the values sorted highest to lowest and only alphabet")
+    print(alphaDict)
 
     return
 
-
+def alphaOnly(oldLst):
+    newLst = []
+    for diction in oldLst:#acces my dictionaries
+        if diction["name"].isalpha() == True:#check alpha
+            newLst.append(diction)
+    return newLst
 
 def sort_on(dict):
-    return dict["num"]
+    return dict["num"]# return value of "num" key granted it exists
 
 def listDict(oldDict):
-    newDict = [{"name": key, "num": value} for key, value in oldDict.items()]
-    return newDict
+    dictLst = [{"name": key, "num": value} for key, value in oldDict.items()] # format list with data from old dict
+    return dictLst
 
 def makeCharDict(chars, strText):
     strLetters = list(strText)
