@@ -7,13 +7,17 @@ def main():
     charDict = makeCharDict(chars, lowText)
     dictLst = listDict(charDict)
     dictLst.sort(reverse=True, key=sort_on)#built in sort function sorted in reversed based on sort_on function return
-    alphaDict = alphaOnly(dictLst)
-
-    print(f"there are {wordCount} words in the frankenstein book")
-    print("Here is a labled list of dictionarys with the values sorted highest to lowest and only alphabet")
-    print(alphaDict)
-
+    alphaDictlst = alphaOnly(dictLst)
+    getReport(alphaDictlst, wordCount, filePath)
     return
+
+def getReport(rLst, wordcount, path):
+    print(f"--- Begin report of {path} ---")
+    print(f"{wordcount} words found in the document\n\n")
+    for diction in rLst:
+        print(f"The '{diction['name']}' character was found {diction['num']} times")
+    print("--- End report ---")
+    return 
 
 def alphaOnly(oldLst):
     newLst = []
@@ -32,13 +36,12 @@ def listDict(oldDict):
 def makeCharDict(chars, strText):
     strLetters = list(strText)
     charDict = {}
-    for i in range(0, len(chars)): # go through each letter found
+    for i in range(0, len(chars)): # grantedo through each letter found
         count = 0
         for j in range(0, len(strLetters)):# increment the count if you find the letter
             if chars[i] == strLetters[j]:
                 count += 1
         charDict.update({chars[i]: count}) #update dict with current count and letter inquery
-    #print(charDict) #debug
     return charDict
 
 def wc(fileStr):
@@ -61,8 +64,6 @@ def findChars(textStr):
                 foundChar = True # if current char already exists aknowlege
         if foundChar == False: #if char was not found 
             charFound.append(chars[i])
-            #print(chars[i]) #debug
     return charFound
-
 
 main()
